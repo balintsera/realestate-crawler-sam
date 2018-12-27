@@ -2,8 +2,13 @@ const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: process.env.AWS_REGION || 'eu-central-1',
-  endpoint: "http://localhost:8000"
 });
+
+if (!!process.env.AWS_DYNAMO_ENDPOINT) {
+  AWS.config.update({
+    endpoint: process.env.AWS_DYNAMO_ENDPOINT
+  })
+}
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 const TABLE_NAME = process.env.TABLE_NAME

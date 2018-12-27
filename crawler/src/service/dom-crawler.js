@@ -18,7 +18,8 @@ class DOMCrawler {
           done()
         } else {
           const $ = res.$
-          
+          console.log("res", res)
+
           // this is where actual crawling happens
           const flatsExtracted = _self._extractFlats($, res.options.parentSelector, res.options.selectors)
           _self.results = _self.results.concat(flatsExtracted)

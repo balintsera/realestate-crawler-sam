@@ -28,7 +28,7 @@ Resources:
         CheckWebsiteScheduledEvent:
           Type: Schedule
           Properties:
-            Schedule: rate(1 minute)
+            Schedule: rate(30 minutes)
       Environment:
         Variables:
           TABLE: !Ref Table
@@ -38,16 +38,6 @@ Resources:
       AttributeDefinitions:
       - AttributeName: "ID"
         AttributeType: "S"
-      - AttributeName: "Address"
-        AttributeType: "S"
-      - AttributeName: "ForeignId"
-        AttributeType: "S"
-      - AttributeName: "Price"
-        AttributeType: "N"
-      - AttributeName: "RoomNum"
-        AttributeType: "N"
-      - AttributeName: "Size"
-        AttributeType: "N"
       KeySchema:
       - AttributeName: "ID"
         KeyType: "HASH"

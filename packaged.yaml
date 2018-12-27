@@ -5,10 +5,20 @@ Description: 'Real estate crawler
 Globals:
   Function:
     Timeout: 20
+Parameters:
+  Table:
+    AllowedValues:
+    - RealEstate
+    Default: RealEstate
+    Type: String
 Resources:
   Crawler:
     Properties:
-      CodeUri: s3://serabalint-deployment-crawler/a83e515529f1855172466cc2f9749338
+      CodeUri: s3://serabalint-deployment-crawler/53a25b917ef20ff5d5b9adf43e2da4a7
+      Environment:
+        Variables:
+          TABLE:
+            Ref: Table
       Events:
         CheckWebsiteScheduledEvent:
           Properties:
@@ -18,4 +28,18 @@ Resources:
       Policies: AmazonDynamoDBFullAccess
       Runtime: nodejs8.10
     Type: AWS::Serverless::Function
+  RealEstateData:
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: ID
+        AttributeType: S
+      KeySchema:
+      - AttributeName: ID
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: '5'
+        WriteCapacityUnits: '5'
+      TableName:
+        Ref: Table
+    Type: AWS::DynamoDB::Table
 Transform: AWS::Serverless-2016-10-31
