@@ -22,6 +22,6 @@ Resources:
                 CheckWebsiteScheduledEvent:
                     Type: Schedule
                     Properties:
-                        Schedule: rate(10 minute)
+                        Schedule: rate(1 minute)
 
 

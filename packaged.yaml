@@ -8,7 +8,7 @@ Globals:
 Resources:
   Crawler:
     Properties:
-      CodeUri: s3://serabalint-deployment-crawler/557434ecb141a19d05d21d5de41cf91e
+      CodeUri: s3://serabalint-deployment-crawler/a83e515529f1855172466cc2f9749338
       Events:
         CheckWebsiteScheduledEvent:
           Properties:
