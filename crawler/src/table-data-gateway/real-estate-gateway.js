@@ -6,12 +6,12 @@ AWS.config.update({
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient()
-const TABLE_NAME = this.process.TABLE_NAME
+const TABLE_NAME = process.env.TABLE_NAME
 
 class RealEstateGateway {
   static insert(realEstate) {
     const putParams = {
-      Table: TABLE_NAME,
+      TableName: TABLE_NAME,
       Item: {
         "ID":  realEstate.id,
         "Address": realEstate.address,
@@ -25,4 +25,4 @@ class RealEstateGateway {
   }
 }
 
-modules.export = RealEstateGateway
+module.exports = RealEstateGateway
