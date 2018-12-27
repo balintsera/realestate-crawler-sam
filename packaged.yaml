@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Real estate crawler
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+Resources:
+  Crawler:
+    Properties:
+      CodeUri: s3://serabalint-deployment-crawler/f9d81b831f9cb89e25b3170e6007581b
+      Events:
+        CheckWebsiteScheduledEvent:
+          Properties:
+            Schedule: rate(1 minute)
+          Type: Schedule
+      Handler: index.handler
+      Policies: AmazonDynamoDBFullAccess
+      Runtime: nodejs8.10
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

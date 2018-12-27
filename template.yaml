@@ -18,10 +18,10 @@ Resources:
             Handler: index.handler
             Runtime: nodejs8.10
             Policies: AmazonDynamoDBFullAccess
-                Events:
-                    CheckWebsiteScheduledEvent:
-                        Type: Schedule
-                        Properties:
-                            Schedule: rate(1 minute)
+            Events:
+                CheckWebsiteScheduledEvent:
+                    Type: Schedule
+                    Properties:
+                        Schedule: rate(1 minute)
 
 
