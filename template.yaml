@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    Real estate crawler
+    
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+    Function:
+        Timeout: 20
+
+
+Resources:
+
+    Crawler:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            CodeUri: crawler/
+            Handler: index.handler
+            Runtime: nodejs8.10
+            Policies: AmazonDynamoDBFullAccess
+                Events:
+                    CheckWebsiteScheduledEvent:
+                        Type: Schedule
+                        Properties:
+                            Schedule: rate(1 minute)
+
+
