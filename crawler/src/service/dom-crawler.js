@@ -12,13 +12,23 @@ class DOMCrawler {
     this.crawler = new Crawler({
       maxConnections: 10,
       // This will be called for each crawled page
-      callback (error, res, done) {
-        console.log("uri", res.options.uri)
+      callback: function (error, res, done) {
+        console.log('uri', res.options.uri)
         if (error) {
+          console.error(`Request to ${res.options.uri} failed, error: ${error.message}`)
           done()
         } else {
           const $ = res.$
-          console.log("res", res)
+          console.log('res code', res.statusCode)
+          if (res.statusCode !== 200 ) {
+            console.error(`Request to ${res.options.uri} failed, code: ${res.statusCode}`)
+            // jofogoas sends 404 with good results
+            if (res.body.length < 500) {
+              console.error(`Request to ${res.options.uri} failed, code: ${res.statusCode}, body is almost empty`)
+              done()
+            }
+
+          }
 
           // this is where actual crawling happens
           const flatsExtracted = _self._extractFlats($, res.options.parentSelector, res.options.selectors)
@@ -36,8 +46,8 @@ class DOMCrawler {
       this.crawler.on('drain', () => {
         resolve(this.results)
       })
-      this.crawler.on('error', () => {
-        reject()
+      this.crawler.on('error', err => {
+        reject(err)
       })
     })
 
