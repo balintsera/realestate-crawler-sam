@@ -1,0 +1,11 @@
+{
+  "name": "dynamo-streamer",
+  "version": "1.0.0",
+  "description": "listend to a dynamo stream and sends mail on new items",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha"
+  },
+  "author": "balint.sera@gmail.com",
+  "license": "ISC"
+}

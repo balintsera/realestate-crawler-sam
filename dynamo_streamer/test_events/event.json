@@ -1,0 +1,100 @@
+{
+  "Records":[
+    {
+      "eventID":"1",
+      "eventName":"INSERT",
+      "eventVersion":"1.0",
+      "eventSource":"aws:dynamodb",
+      "awsRegion":"us-east-1",
+      "dynamodb":{
+        "ApproximateCreationDateTime": 1545998905,
+        "Keys": {
+          "ID": {
+            "S": "27c47ff3d394cdd116a426eb0c06188d"
+          }
+        },
+        "NewImage": {
+          "Address": {
+            "S": "Csongrád  , Szeged  , Alsóváros"
+          },
+          "Price": {
+            "N": "153"
+          },
+          "Size": {
+            "N": "125"
+          },
+          "ID": {
+            "S": "27c47ff3d394cdd116a426eb0c06188d"
+          },
+          "RoomNum": {
+            "N": "2"
+          }
+        },
+        "SequenceNumber": "3042900000000003712948923",
+        "SizeBytes": 133,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN":"stream-ARN"
+    },
+    {
+      "eventID":"2",
+      "eventName":"MODIFY",
+      "eventVersion":"1.0",
+      "eventSource":"aws:dynamodb",
+      "awsRegion":"us-east-1",
+      "dynamodb":{
+        "Keys":{
+          "Id":{
+            "N":"101"
+          }
+        },
+        "NewImage":{
+          "Message":{
+            "S":"This item has changed"
+          },
+          "Id":{
+            "N":"101"
+          }
+        },
+        "OldImage":{
+          "Message":{
+            "S":"New item!"
+          },
+          "Id":{
+            "N":"101"
+          }
+        },
+        "SequenceNumber":"222",
+        "SizeBytes":59,
+        "StreamViewType":"NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN":"stream-ARN"
+    },
+    {
+      "eventID":"3",
+      "eventName":"REMOVE",
+      "eventVersion":"1.0",
+      "eventSource":"aws:dynamodb",
+      "awsRegion":"us-east-1",
+      "dynamodb":{
+        "Keys":{
+          "Id":{
+            "N":"101"
+          }
+        },
+        "OldImage":{
+          "Message":{
+            "S":"This item has changed"
+          },
+          "Id":{
+            "N":"101"
+          }
+        },
+        "SequenceNumber":"333",
+        "SizeBytes":38,
+        "StreamViewType":"NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN":"stream-ARN"
+    }
+  ]
+}
