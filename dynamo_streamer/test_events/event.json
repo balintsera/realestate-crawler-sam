@@ -26,6 +26,9 @@
           "ID": {
             "S": "27c47ff3d394cdd116a426eb0c06188d"
           },
+          "ForeignID": {
+            "S": "/szeged/kiado+haz/csaladi-haz/csongrad+megye+szeged+szakolcai+utca/27759728"
+          },
           "RoomNum": {
             "N": "2"
           }
