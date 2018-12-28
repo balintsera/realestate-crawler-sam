@@ -17,25 +17,19 @@ class DOMCrawler {
         if (error) {
           console.error(`Request to ${res.options.uri} failed, error: ${error.message}`)
           done()
-        } else {
-          const $ = res.$
-          console.log('res code', res.statusCode)
-          if (res.statusCode !== 200 ) {
-            console.error(`Request to ${res.options.uri} failed, code: ${res.statusCode}`)
-            // jofogoas sends 404 with good results
-            if (res.body.length < 500) {
-              console.error(`Request to ${res.options.uri} failed, code: ${res.statusCode}, body is almost empty`)
-              done()
-            }
-
-          }
-
-          // this is where actual crawling happens
-          const flatsExtracted = _self._extractFlats($, res.options.parentSelector, res.options.selectors)
-          _self.results = _self.results.concat(flatsExtracted)
+          return
+        }
+        // status code is not enough, jofogas sends 404 with the results. good job.
+        if (res.statusCode !== 200 && res.body.length < 500) {
+          console.error(`Request to ${res.options.uri} failed, code: ${res.statusCode}`)
           done()
+          return
         }
 
+        // this is where actual crawling happens
+        const flatsExtracted = _self._extractFlats(res.$, res.options.parentSelector, res.options.selectors)
+        _self.results = _self.results.concat(flatsExtracted)
+        done()
       }
     })
   }
