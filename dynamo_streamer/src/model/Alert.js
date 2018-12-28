@@ -10,7 +10,7 @@ class Alert {
   get body() {
     return "Új házak linkjei: " + this.realEstates.reduce((reduced, current) => {
       if (reduced.length > 0) {
-        reduced += ', '
+        reduced += ", \n"
       }
       return reduced + current.foreignID
     }, "")

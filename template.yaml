@@ -6,7 +6,7 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 20
+    Timeout: 40
 
 Parameters:
   Table:
@@ -28,10 +28,12 @@ Resources:
         CheckWebsiteScheduledEvent:
           Type: Schedule
           Properties:
-            Schedule: rate(30 minutes)
+            Schedule: rate(10 minutes)
+          Enabled: False
       Environment:
         Variables:
           TABLE: !Ref Table
+
   RealEstateData:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -45,5 +47,29 @@ Resources:
         ReadCapacityUnits: "5"
         WriteCapacityUnits: "5"
       TableName: !Ref Table
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
 
+  DynamoStreamer:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dynamo_streamer/
+      Handler: index.handler
+      Runtime: nodejs8.10
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AmazonSESFullAccess
+      Environment:
+        Variables:
+          TABLE: !Ref Table
 
+  DataTableStream:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 50
+      Enabled: True
+      EventSourceArn:
+        Fn::GetAtt: [ RealEstateData , StreamArn ]
+      FunctionName:
+        Fn::GetAtt: [ DynamoStreamer , Arn ]
+      StartingPosition: LATEST #always start at the tail of the stream

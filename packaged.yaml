@@ -4,7 +4,7 @@ Description: 'Real estate crawler
   '
 Globals:
   Function:
-    Timeout: 20
+    Timeout: 40
 Parameters:
   Table:
     AllowedValues:
@@ -14,18 +14,46 @@ Parameters:
 Resources:
   Crawler:
     Properties:
-      CodeUri: s3://serabalint-deployment-crawler/53a25b917ef20ff5d5b9adf43e2da4a7
+      CodeUri: s3://serabalint-crawler-depl/f2d7941be970c6a9b713b55ac2f30893
       Environment:
         Variables:
           TABLE:
             Ref: Table
       Events:
         CheckWebsiteScheduledEvent:
+          Enabled: false
           Properties:
-            Schedule: rate(1 minute)
+            Schedule: rate(10 minutes)
           Type: Schedule
       Handler: index.handler
       Policies: AmazonDynamoDBFullAccess
+      Runtime: nodejs8.10
+    Type: AWS::Serverless::Function
+  DataTableStream:
+    Properties:
+      BatchSize: 50
+      Enabled: true
+      EventSourceArn:
+        Fn::GetAtt:
+        - RealEstateData
+        - StreamArn
+      FunctionName:
+        Fn::GetAtt:
+        - DynamoStreamer
+        - Arn
+      StartingPosition: LATEST
+    Type: AWS::Lambda::EventSourceMapping
+  DynamoStreamer:
+    Properties:
+      CodeUri: s3://serabalint-crawler-depl/09b8d1b2c951ec9c805e04ef7de43e33
+      Environment:
+        Variables:
+          TABLE:
+            Ref: Table
+      Handler: index.handler
+      Policies:
+      - AmazonDynamoDBFullAccess
+      - AmazonSESFullAccess
       Runtime: nodejs8.10
     Type: AWS::Serverless::Function
   RealEstateData:
@@ -39,6 +67,8 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: '5'
         WriteCapacityUnits: '5'
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
       TableName:
         Ref: Table
     Type: AWS::DynamoDB::Table

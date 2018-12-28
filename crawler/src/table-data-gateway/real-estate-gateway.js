@@ -1,7 +1,7 @@
 const AWS = require("aws-sdk");
 
 const awsConfigUpdate = {
-  region: 'eu-central-1',
+  region: process.env.AWS_REGION || 'eu-west-1',
 }
 
 console.log(process.env.AWS_DYNAMO_ENDPOINT)
@@ -12,7 +12,7 @@ if (process.env.AWS_DYNAMO_ENDPOINT) {
 AWS.config.update(awsConfigUpdate);
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-const TABLE_NAME = process.env.TABLE_NAME
+const TABLE_NAME = process.env.TABLE
 
 class RealEstateGateway {
   // batchInsert enables insertion of max 25 items
@@ -49,7 +49,7 @@ class RealEstateGateway {
       const prom = new Promise((resolve, reject) => {
         dynamodb.batchWriteItem(params, (err, data) => {
           if (err) {
-            console.log("dynamodb.batchWriteItem err", err)
+            console.log("dynamodb.batchWriteItem %j %j", err, params)
             reject(err)
           }
           resolve(data)

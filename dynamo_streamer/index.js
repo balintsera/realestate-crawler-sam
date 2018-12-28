@@ -11,7 +11,8 @@ exports.handler = async (event, context) => {
     }
 
     const realEstate = record.dynamodb
-    realEstates.push({ foreignID: realEstate.NewImage.ForeignID.S })
+    console.log("RealEstate %j", realEstate)
+    realEstates.push({ foreignID: realEstate.NewImage.ForeignId.S })
   });
 
   const alert = new Alert(recipients, realEstates)

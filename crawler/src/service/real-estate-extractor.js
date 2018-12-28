@@ -23,7 +23,7 @@ class RealEstateExtractor {
         throw new Error('No such property in RealEstate: ' + selector.field)
       }
 
-      let extractorCommand = `this.parent.find(selector.selector)`
+      let extractorCommand = `this.parent.find('${selector.selector}')`
       const methods = Object.keys(selector.methods).reduce((reduced, current) => {
         const args =
           selector.methods[current].reduce((reducedArgs, currentArg) => {

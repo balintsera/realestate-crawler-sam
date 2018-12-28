@@ -63,7 +63,38 @@ const urls = [
       }
     ]
   },
-
+  // https://www.ingatlannet.hu/kiadó/ház/Szeged
+  {
+    uri: 'https://www.ingatlannet.hu/kiadó/ház/Szeged',
+    parentSelector: '.row.mb-md-3',
+    selectors: [
+      {
+        field: 'address',
+        selector: '.item-desc p b',
+        methods: {'text': [], 'trim': []} // property name: method name, value array: paramters for that method
+      },
+      {
+        field: 'price',
+        selector: '.item-price h5',
+        methods: {'text': [], 'trim': [] }
+      },
+      {
+        field: 'size',
+        selector: '.list-inline li:nth-child(1)',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'roomCount',
+        selector: '.list-inline li:nth-child(3)',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'foreignID',
+        selector: '.pl-md-0 a:nth-child(1)',
+        methods: {'attr': ['href']}
+      }
+    ]
+  },
 ]
 
 module.exports = urls
