@@ -20,6 +20,16 @@ class RealEstateGateway {
     const missing = 'MISSING_STRING'
     const missingNum = '0'
 
+    // remove unusable ones
+    realEstates = realEstates
+      .filter(realEstate => {
+        if (!realEstate.foreignID) {
+          return false
+        }
+
+        return true
+      })
+
     // slice by 25 items
     const batches = []
     const batchSize = 25
@@ -29,23 +39,21 @@ class RealEstateGateway {
 
     const batchWritePromises = []
     batches.forEach(batch => {
-      const putRequests = batch.map(realEstate => {
-        if (!realEstate.foreignID) {
-          return null;
-        }
-        return {
-          PutRequest: {
-            Item: {
-              "ID": { S: realEstate.id },
-              "Address": { S: realEstate.address || missing },
-              "ForeignId":  { S: realEstate.foreignID || missing },
-              "Price": { N: realEstate.price.toString() || missingNum },
-              "RoomNum": { N: realEstate.roomCountNum.toString() || missingNum },
-              "Size": { N: realEstate.sizeNum.toString() || missingNum },
-              "BaseURL": { S: realEstate.baseURL || missing }
+      const putRequests = batch
+        .map(realEstate => {
+          return {
+            PutRequest: {
+              Item: {
+                "ID": { S: realEstate.id },
+                "Address": { S: realEstate.address || missing },
+                "ForeignId":  { S: realEstate.foreignID || missing },
+                "Price": { N: realEstate.price.toString() || missingNum },
+                "RoomNum": { N: realEstate.roomCountNum.toString() || missingNum },
+                "Size": { N: realEstate.sizeNum.toString() || missingNum },
+                "BaseURL": { S: realEstate.baseURL || missing }
+              }
             }
           }
-        }
       })
 
       const params = { RequestItems: {} }

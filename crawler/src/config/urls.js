@@ -1,6 +1,8 @@
 const RealEstate = require('../model/real-estate')
 
-const urls = [{
+const urls = [
+  
+  {
     uri: 'https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett',
     parentSelector: '.listing__card',
     selectors: [
@@ -122,6 +124,38 @@ const urls = [{
       {
         field: 'foreignID',
         selector: 'a',
+        methods: {'attr': ['href']}
+      }
+    ]
+  },
+
+  {
+    uri: 'https://www.ingatlanbazar.hu/alberlet-Szeged-Kiado-Haz?property_type=on&property__2=2&property_location%5B0%5D=1099&price_min=&price_max=&property_build_date=&searchtext=&page=1',
+    parentSelector: '.box',
+    selectors: [
+      {
+        field: 'address',
+        selector: 'h2.property-description__title',
+        methods: {'text': [], 'trim': [], 'substring': [180]}
+      },
+      {
+        field: 'price',
+        selector: 'h2.property-description__title',
+        methods: {'text': [], 'trim': [], 'substring': [0,8]}
+      },
+      {
+        field: 'size',
+        selector: 'ul.property-list li:nth-child(2)',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'roomCount',
+        selector: 'ul.property-list li:nth-child(1)',
+        methods: {'text': [], 'trim': [], 'substring': [0,2]}
+      },
+      {
+        field: 'foreignID',
+        selector: '.property-description a',
         methods: {'attr': ['href']}
       }
     ]
