@@ -1,7 +1,6 @@
 const RealEstate = require('../model/real-estate')
 
-const urls = [
-  {
+const urls = [{
     uri: 'https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett',
     parentSelector: '.listing__card',
     selectors: [
@@ -91,6 +90,38 @@ const urls = [
       {
         field: 'foreignID',
         selector: '.pl-md-0 a:nth-child(1)',
+        methods: {'attr': ['href']}
+      }
+    ]
+  },
+  // https://www.ingatlannet.hu/kiadó/ház/Szeged
+  {
+    uri: 'https://otthonterkep.hu/szures/kiado+haz+alberlet+szeged?sort=rd&ex=1',
+    parentSelector: '.prop-card',
+    selectors: [
+      {
+        field: 'address',
+        selector: 'h2.prop-type .prop-address',
+        methods: {'text': [], 'trim': []} // property name: method name, value array: paramters for that method
+      },
+      {
+        field: 'price',
+        selector: '.prop-fullprice',
+        methods: {'attr': ['content'], }
+      },
+      {
+        field: 'size',
+        selector: '.prop-fullsize span:nth-child(1)',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'roomCount',
+        selector: 'span.prop-rooms',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'foreignID',
+        selector: 'a',
         methods: {'attr': ['href']}
       }
     ]

@@ -30,6 +30,9 @@ class RealEstateGateway {
     const batchWritePromises = []
     batches.forEach(batch => {
       const putRequests = batch.map(realEstate => {
+        if (!realEstate.foreignID) {
+          return null;
+        }
         return {
           PutRequest: {
             Item: {
