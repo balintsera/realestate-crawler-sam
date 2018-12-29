@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 AWS.config.update({region: process.env.AWS_REGION});
+const url = require('url')
 
 class Alert {
   constructor(addresses, realEstates) {
@@ -14,7 +15,8 @@ class Alert {
       }
       let link
       if (!this._hasBaseURL(current.foreignID)) {
-        link = current.baseURL
+        const baseURL = url.parse(current.baseURL)
+        link = `${baseURL.protocol}//${baseURL.hostname}`
       }
       link += current.foreignID
       return reduced + link
@@ -46,7 +48,7 @@ class Alert {
       },
       Source: 'balint.sera@redsteedstudios.com'
     };
-    console.log("send params", params)
+    console.log("send params %j", params)
     return new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
   }
 }

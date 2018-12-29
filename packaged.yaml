@@ -14,7 +14,7 @@ Parameters:
 Resources:
   Crawler:
     Properties:
-      CodeUri: s3://serabalint-crawler-depl/cd9dff427c86a18fd6210d295eb24128
+      CodeUri: s3://serabalint-crawler-depl/c560c473f6d4669ee07581643eec0cf6
       Environment:
         Variables:
           TABLE:
@@ -45,7 +45,7 @@ Resources:
     Type: AWS::Lambda::EventSourceMapping
   DynamoStreamer:
     Properties:
-      CodeUri: s3://serabalint-crawler-depl/2a101188e72dc653470abae76b2b8d4d
+      CodeUri: s3://serabalint-crawler-depl/a2bbb67803c3f3496766cd5d1b634c1a
       Environment:
         Variables:
           TABLE:
