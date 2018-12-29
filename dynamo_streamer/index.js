@@ -1,6 +1,6 @@
 const NAME_INSERT = 'INSERT'
 const Alert = require('./src/model/Alert')
-const recipients = ['balint.sera@gmail.com']
+const recipients = ['balint.sera@gmail.com', 'anna.ferencz@gmail.com']
 
 
 exports.handler = async (event, context) => {
