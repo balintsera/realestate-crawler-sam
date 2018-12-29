@@ -22,6 +22,7 @@ class DOMCrawler {
         // status code is not enough, jofogas sends 404 with the results. good job.
         if (res.statusCode !== 200 && res.body.length < 500) {
           console.error(`Request to ${res.options.uri} failed, code: ${res.statusCode}`)
+          done()
           return
         }
 

@@ -8,6 +8,7 @@ exports.handler = async (event, context) => {
     return
   }
   const crawler = new DOMCrawler(urls)
+
   const results = await crawler.start()
   console.log("crawler results num: " + results.length)
   try {

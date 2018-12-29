@@ -24,7 +24,7 @@ class Alert {
   _hasBaseURL(foreignID) {
     return foreignID.match(/^http.+/)
   }
-  
+
   send() {
     const body = this.body
     // Create sendEmail params
