@@ -159,6 +159,33 @@ const urls = [
       }
     ]
   },
+
+  {
+    uri: 'https://ving.hu/kereses?q=cT10cnVlJnJlZ2lvbj05NDgmcmVnaW9uLW5hbWU9U3plZ2VkJnNhbGUtcmVudD1yZW50JnR5cGUtY3NhbGFkaS1oYXo9Y3NhbGFkaS1oYXomdHlwZS1zb3JoYXo9c29yaGF6JnByaWNlLWZyb209JnByaWNlLXRvPSZiZWRyb29tcy1mcm9tPSZyZWZfbnVtYmVyPSZvd25lci1yZW50YWw9b3duZXJzaGlwJmJ1aWx0aW4tZnJvbT0wJmxpdmluZ3Jvb21zLWZyb209JmJhdGhyb29tcy1mcm9tPSZmbG9vci1mcm9tPSZmbG9vci10bz0mc2l6ZS1mcm9tPSZzaXplLXRvPSZwbG90c2l6ZS1mcm9tPSZwbG90c2l6ZS10bz0=',
+    parentSelector: '.thumbnail-style.easy-block-v1',
+    selectors: [
+      {
+        field: 'address',
+        selector: 'ul.list-unstyled li:nth-child(3)',
+        methods: {'text': [], 'trim': [] }
+      },
+      {
+        field: 'price',
+        selector: 'ul.list-unstyled li:nth-child(1)',
+        methods: {'text': [], 'trim': [] }
+      },
+      {
+        field: 'size',
+        selector: 'ul.list-unstyled li:nth-child(2) em',
+        methods: {'text': [], 'trim': [] }
+      },
+      {
+        field: 'foreignID',
+        selector: '.carousel-inner a.item',
+        methods: {'attr': ['href']}
+      }
+    ]
+  },
 ]
 
 module.exports = urls

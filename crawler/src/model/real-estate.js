@@ -26,7 +26,7 @@ class RealEstate {
     this.size = parseInt(this.size, 10)
     this.priceNum = this.price
     this.sizeNum = this.size
-    this.roomCountNum = parseInt(this.roomCount, 10)
+    this.roomCountNum = this.roomCount ? parseInt(this.roomCount, 10) : 0
     if (typeof this.foreignID !== 'undefined') {
       this.id = md5(this.foreignID)
     }
