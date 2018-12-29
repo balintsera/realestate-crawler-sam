@@ -1,9 +1,9 @@
 const RealEstate = require('../model/real-estate')
 
 const urls = [
-  
+  // 'https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett',
   {
-    uri: 'https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett',
+    uri: 'http://host.docker.internal:8282/lista/kiado+haz+szeged+2-szoba-felett',
     parentSelector: '.listing__card',
     selectors: [
       {

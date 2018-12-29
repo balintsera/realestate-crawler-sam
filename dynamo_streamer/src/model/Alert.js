@@ -13,7 +13,7 @@ class Alert {
       if (reduced.length > 0) {
         reduced += " \n"
       }
-      let link
+      let link = ''
       if (!this._hasBaseURL(current.foreignID)) {
         const baseURL = url.parse(current.baseURL)
         link = `${baseURL.protocol}//${baseURL.hostname}`
