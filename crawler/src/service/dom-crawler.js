@@ -43,9 +43,6 @@ class DOMCrawler {
         reject(err)
       })
     })
-
-
-
   }
 
   _extractFlats ($, parentSelector, selectors, baseURL) {

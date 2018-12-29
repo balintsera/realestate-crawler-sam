@@ -8,14 +8,23 @@ class Alert {
   }
 
   get body() {
-    return "Új házak linkjei: " + this.realEstates.reduce((reduced, current) => {
+    return "Új házak linkjei: \n" + this.realEstates.reduce((reduced, current) => {
       if (reduced.length > 0) {
-        reduced += ", \n"
+        reduced += " \n"
       }
-      return reduced + current.foreignID
+      let link
+      if (!this._hasBaseURL(current.foreignID)) {
+        link = current.baseURL
+      }
+      link += current.foreignID
+      return reduced + link
     }, "")
   }
 
+  _hasBaseURL(foreignID) {
+    return foreignID.match(/^http.+/)
+  }
+  
   send() {
     const body = this.body
     // Create sendEmail params
@@ -25,10 +34,6 @@ class Alert {
       },
       Message: {
         Body: {
-          Html: {
-            Charset: "UTF-8",
-            Data: body
-          },
           Text: {
             Charset: "UTF-8",
             Data: body
