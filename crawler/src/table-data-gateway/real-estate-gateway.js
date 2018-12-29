@@ -38,7 +38,8 @@ class RealEstateGateway {
               "ForeignId":  { S: realEstate.foreignID || missing },
               "Price": { N: realEstate.price.toString() || missingNum },
               "RoomNum": { N: realEstate.roomCountNum.toString() || missingNum },
-              "Size": { N: realEstate.sizeNum.toString() || missingNum }
+              "Size": { N: realEstate.sizeNum.toString() || missingNum },
+              "BaseURL": { S: realEstate.baseURL || missing }
             }
           }
         }

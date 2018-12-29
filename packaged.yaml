@@ -14,7 +14,7 @@ Parameters:
 Resources:
   Crawler:
     Properties:
-      CodeUri: s3://serabalint-crawler-depl/f2d7941be970c6a9b713b55ac2f30893
+      CodeUri: s3://serabalint-crawler-depl/04b7822ff04d98af3637b3400c419b76
       Environment:
         Variables:
           TABLE:

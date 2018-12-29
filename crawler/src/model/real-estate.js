@@ -10,7 +10,7 @@ class RealEstate {
     }
   }
 
-  constructor (address, price, shortDesc, size, roomCount, foreignID) {
+  constructor (address, price, shortDesc, size, roomCount, foreignID, baseURL) {
     this.id = uniqueString()
     this.address = address
     this.price = price
@@ -18,6 +18,7 @@ class RealEstate {
     this.size = size
     this.roomCount = roomCount
     this.foreignID = foreignID
+    this.baseURL = baseURL
   }
 
   parseNumbers () {

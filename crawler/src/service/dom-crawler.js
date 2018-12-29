@@ -26,7 +26,7 @@ class DOMCrawler {
         }
 
         // this is where actual crawling happens
-        const flatsExtracted = _self._extractFlats(res.$, res.options.parentSelector, res.options.selectors)
+        const flatsExtracted = _self._extractFlats(res.$, res.options.parentSelector, res.options.selectors, res.options.uri)
         _self.results = _self.results.concat(flatsExtracted)
         done()
       }
@@ -48,11 +48,11 @@ class DOMCrawler {
 
   }
 
-  _extractFlats ($, parentSelector, selectors) {
+  _extractFlats ($, parentSelector, selectors, baseURL) {
     const $flats = $(parentSelector)
     const flatsExtracted = []
     $flats.each(function ($flat) {
-      const extractor = new RealEstateExtractor($(this), selectors)
+      const extractor = new RealEstateExtractor($(this), selectors, baseURL)
       flatsExtracted.push(extractor.extract())
     })
     return flatsExtracted
