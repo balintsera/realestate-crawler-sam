@@ -1,6 +1,5 @@
 const AWS = require('aws-sdk');
 AWS.config.update({region: process.env.AWS_REGION});
-const url = require('url')
 
 class Alert {
   constructor(addresses, realEstates) {
@@ -13,19 +12,11 @@ class Alert {
       if (reduced.length > 0) {
         reduced += " \n"
       }
-      let link = ''
-      if (!this._hasBaseURL(current.foreignID)) {
-        const baseURL = url.parse(current.baseURL)
-        link = `${baseURL.protocol}//${baseURL.hostname}`
-      }
-      link += current.foreignID
-      return reduced + link
+
+      return reduced + current.absoluteURL
     }, "")
   }
-
-  _hasBaseURL(foreignID) {
-    return foreignID.match(/^http.+/)
-  }
+  
 
   send() {
     const body = this.body

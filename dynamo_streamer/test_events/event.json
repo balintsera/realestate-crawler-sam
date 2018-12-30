@@ -32,6 +32,9 @@
           "BaseURL": {
             "S": "https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett"
           },
+          "AbsoluteURL": {
+            "S": "https://ingatlan.com/szeged/kiado+haz/csaladi-haz/csongrad+megye+szeged+szakolcai+utca/27759728"
+          },
           "RoomNum": {
             "N": "2"
           }
