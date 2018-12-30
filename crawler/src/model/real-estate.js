@@ -1,6 +1,6 @@
 const uniqueString = require('unique-string')
 const md5 = require('md5')
-
+const url = require('url')
 
 class RealEstate {
   static getTypes () {
@@ -22,7 +22,7 @@ class RealEstate {
   }
 
   parseNumbers () {
-    this.price = parseFloat(this.price, 10)
+    this.price = parseFloat(this.price)
     this.size = parseInt(this.size, 10)
     this.priceNum = this.price
     this.sizeNum = this.size
@@ -30,6 +30,19 @@ class RealEstate {
     if (typeof this.foreignID !== 'undefined') {
       this.id = md5(this.foreignID)
     }
+  }
+
+  get absoluteURL() {
+    let domain = ''
+    if (!this._hasDomain()) {
+      const baseURL = url.parse(this.baseURL)
+      domain = `${baseURL.protocol}//${baseURL.hostname}`
+    }
+    return domain + this.foreignID
+  }
+
+  _hasDomain() {
+    return this.foreignID.match(/^http.+/)
   }
 }
 

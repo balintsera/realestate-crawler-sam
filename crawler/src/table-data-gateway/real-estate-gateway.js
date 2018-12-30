@@ -50,12 +50,13 @@ class RealEstateGateway {
                 "Price": { N: realEstate.price.toString() || missingNum },
                 "RoomNum": { N: realEstate.roomCountNum.toString() || missingNum },
                 "Size": { N: realEstate.sizeNum.toString() || missingNum },
-                "BaseURL": { S: realEstate.baseURL || missing }
+                "BaseURL": { S: realEstate.baseURL || missing },
+                "AbsoluteURL": { S: realEstate.absoluteURL || missing }
               }
             }
           }
       })
-
+    console.log("putRequests %j", putRequests)
       const params = { RequestItems: {} }
       params.RequestItems[TABLE_NAME] = putRequests
       const prom = new Promise((resolve, reject) => {

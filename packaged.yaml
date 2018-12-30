@@ -45,7 +45,7 @@ Resources:
     Type: AWS::Lambda::EventSourceMapping
   DynamoStreamer:
     Properties:
-      CodeUri: s3://serabalint-crawler-depl/b37bddb7ae44d75a65da8844db9e2fc0
+      CodeUri: s3://serabalint-crawler-depl/17b0b2ff90b779b60268e69f764a0dca
       Environment:
         Variables:
           TABLE:

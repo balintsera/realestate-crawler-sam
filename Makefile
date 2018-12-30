@@ -33,7 +33,9 @@ deploy:
 	sam deploy --template-file packaged.yaml --stack-name $(STACK_NAME) --capabilities CAPABILITY_IAM --region $(REGION)
 
 invoke:
-	cd crawler; cat test_events/event.json| docker run -i -e DOCKER_LAMBDA_USE_STDIN=1 -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_LAMBDA_FUNCTION_TIMEOUT=100 -e TABLE_NAME=realEstateDev -e AWS_DYNAMO_ENDPOINT=http://host.docker.internal:8000 -e AWS_REGION=eu-central-1 -e ALWAYS_RUN=1 --rm -v `pwd`:/var/task lambci/lambda:nodejs8.10
+	echo invoking $(func)
+	cd $(func); \
+	cat test_events/event.json| docker run -i -e DOCKER_LAMBDA_USE_STDIN=1 -e AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) -e AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) -e AWS_LAMBDA_FUNCTION_TIMEOUT=100 -e TABLE=realEstateDev -e AWS_DYNAMO_ENDPOINT=http://host.docker.internal:8000 -e AWS_REGION=eu-central-1 -e ALWAYS_RUN=1 --rm -v `pwd`:/var/task lambci/lambda:nodejs8.10
 
 destroy:
 	aws cloudformation delete-stack --stack-name $(STACK_NAME) --region $(REGION)
