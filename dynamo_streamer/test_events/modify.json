@@ -1,0 +1,94 @@
+{
+  "Records": [
+    {
+      "eventID": "a41d9443ec9c17050fabf9cf0159e63e",
+      "eventName": "MODIFY",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "eu-west-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1546233948,
+        "Keys": {
+          "ID": {
+            "S": "6c0dbe96f688d089f92674c09668ded3"
+          }
+        },
+        "NewImage": {
+          "AbsoluteURL": {
+            "S": "https://ingatlan.jofogas.hu/csongrad/Szegedi_kiado_120_nm_es_haz_86667427.htm"
+          },
+          "Address": {
+            "S": "Csongrád  , Szeged  , Alsóváros"
+          },
+          "Price": {
+            "N": "150"
+          },
+          "Size": {
+            "N": "120"
+          },
+          "BaseURL": {
+            "S": "https://www.jofogas.hu/szeged?q=kiado%20haz"
+          },
+          "ID": {
+            "S": "6c0dbe96f688d089f92674c09668ded3"
+          },
+          "RoomNum": {
+            "N": "2"
+          },
+          "ForeignId": {
+            "S": "https://ingatlan.jofogas.hu/csongrad/Szegedi_kiado_120_nm_es_haz_86667427.htm"
+          }
+        },
+        "SequenceNumber": "12300000000000000475896789",
+        "SizeBytes": 357,
+        "StreamViewType": "NEW_IMAGE"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:eu-west-1:849529972347:table/RealEstate/stream/2018-12-28T13:45:02.559"
+    },
+    {
+      "eventID":"1",
+      "eventName":"INSERT",
+      "eventVersion":"1.0",
+      "eventSource":"aws:dynamodb",
+      "awsRegion":"us-east-1",
+      "dynamodb":{
+        "ApproximateCreationDateTime": 1545998905,
+        "Keys": {
+          "ID": {
+            "S": "27c47ff3d394cdd116a426eb0c06188d"
+          }
+        },
+        "NewImage": {
+          "Address": {
+            "S": "Csongrád  , Szeged  , Alsóváros"
+          },
+          "Price": {
+            "N": "153"
+          },
+          "Size": {
+            "N": "125"
+          },
+          "ID": {
+            "S": "27c47ff3d394cdd116a426eb0c06188d"
+          },
+          "ForeignId": {
+            "S": "/szeged/kiado+haz/csaladi-haz/csongrad+megye+szeged+szakolcai+utca/27759728"
+          },
+          "BaseURL": {
+            "S": "https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett"
+          },
+          "AbsoluteURL": {
+            "S": "https://ingatlan.com/szeged/kiado+haz/csaladi-haz/csongrad+megye+szeged+szakolcai+utca/27759728"
+          },
+          "RoomNum": {
+            "N": "2"
+          }
+        },
+        "SequenceNumber": "3042900000000003712948923",
+        "SizeBytes": 133,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN":"stream-ARN"
+    }
+  ]
+}

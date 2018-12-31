@@ -16,7 +16,7 @@ class Alert {
       return reduced + current.absoluteURL
     }, "")
   }
-  
+
 
   send() {
     const body = this.body

@@ -5,15 +5,19 @@ const recipients = ['balint.sera@gmail.com', 'anna.ferencz@gmail.com']
 
 exports.handler = async (event, context) => {
   const realEstates = []
-  event.Records.forEach((record) => {
-    if (!record.eventName || record.eventName !== NAME_INSERT) {
-      return
-    }
+  console.log("event %j", event.Records)
 
-    const realEstate = record.dynamodb
-    console.log("RealEstate %j", realEstate)
-    realEstates.push({ absoluteURL: realEstate.NewImage.AbsoluteURL.S })
-  });
+  event.Records
+    .filter(record => record.eventName && record.eventName === NAME_INSERT)
+    .forEach((record) => {
+      const realEstate = record.dynamodb
+      console.log("RealEstate %j", realEstate)
+      realEstates.push({ absoluteURL: realEstate.NewImage.AbsoluteURL.S })
+    });
+
+  if (realEstates.length < 1) {
+    return { status: 0 }
+  }
 
   const alert = new Alert(recipients, realEstates)
   await alert.send()
