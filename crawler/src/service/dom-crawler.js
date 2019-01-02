@@ -34,9 +34,8 @@ class DOMCrawler {
         }
 
         // this is where actual crawling happens
-        _self._extractFlats(res.$, res.options.parentSelector, res.options.selectors, res.options.uri)
+        _self._extractFlats(res.$, res.options.parentSelector, res.options.selectors, res.options.uri, done)
         console.log(`Request to ${res.options.uri} extraction success, current results length: ${_self.results.length}`)
-        done()
       }
     })
   }
@@ -53,13 +52,14 @@ class DOMCrawler {
     })
   }
 
-  _extractFlats ($, parentSelector, selectors, baseURL) {
+  _extractFlats ($, parentSelector, selectors, baseURL, done) {
     const $flats = $(parentSelector)
     const _self = this
     $flats.each(function ($flat) {
       const extractor = new RealEstateExtractor($(this), selectors, baseURL)
       _self.results.push(extractor.extract())
     })
+    done()
   }
 }
 
