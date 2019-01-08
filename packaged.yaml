@@ -6,15 +6,25 @@ Globals:
   Function:
     Timeout: 40
 Parameters:
-  Table:
+  AppName:
     AllowedValues:
-    - RealEstate
+    - real-estate-crawler
+    Default: real-estate-crawler
+    Type: String
+  Environment:
+    AllowedValues:
+    - stage
+    - test
+    - prod
+    Default: prod
+    Type: String
+  Table:
     Default: RealEstate
     Type: String
 Resources:
   Crawler:
     Properties:
-      CodeUri: s3://serabalint-crawler-depl/320df9ecf88733a12411bc963d0ed188
+      CodeUri: s3://serabalint-crawler-depl-stage/320df9ecf88733a12411bc963d0ed188
       Environment:
         Variables:
           TABLE:
@@ -25,6 +35,12 @@ Resources:
           Properties:
             Schedule: rate(10 minutes)
           Type: Schedule
+      FunctionName:
+        Fn::Join:
+        - '-'
+        - - Ref: AppName
+          - crawler
+          - Ref: Environment
       Handler: index.handler
       Policies: AmazonDynamoDBFullAccess
       Runtime: nodejs8.10
@@ -45,11 +61,17 @@ Resources:
     Type: AWS::Lambda::EventSourceMapping
   DynamoStreamer:
     Properties:
-      CodeUri: s3://serabalint-crawler-depl/ab9bf34920b0028aefc9a5a14711f1ea
+      CodeUri: s3://serabalint-crawler-depl-stage/ab9bf34920b0028aefc9a5a14711f1ea
       Environment:
         Variables:
           TABLE:
             Ref: Table
+      FunctionName:
+        Fn::Join:
+        - '-'
+        - - Ref: AppName
+          - alert
+          - Ref: Environment
       Handler: index.handler
       Policies:
       - AmazonDynamoDBFullAccess

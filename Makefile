@@ -1,8 +1,21 @@
-STACK_NAME=realestate-crawler
-BUCKET_NAME=serabalint-crawler-depl
+STACK_NAME=realestate-crawler-$(ENV)
+BUCKET_NAME=serabalint-crawler-depl-$(ENV)
+# table name must be RealEsate on prod!!
 REGION=eu-west-1
 
 .PHONY: deploy
+
+check-env:
+ifndef ENV
+  $(error ENV is undefined)
+endif
+ifndef TABLE_NAME
+  $(error TABLE_NAME is undefined. It must be RealEstate on prod to be backward compatible)
+endif
+
+testenvs: check-env
+	echo $(STACK_NAME);
+	echo $(TABLE_NAME)
 
 install:
 	 for d in crawler dynamo_streamer;\
@@ -30,7 +43,7 @@ deploy:
 	   cd ..; \
 	 done
 	sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket $(BUCKET_NAME)
-	sam deploy --template-file packaged.yaml --stack-name $(STACK_NAME) --capabilities CAPABILITY_IAM --region $(REGION)
+	sam deploy --template-file packaged.yaml --stack-name $(STACK_NAME) --capabilities CAPABILITY_IAM --region $(REGION) --parameter-overrides Environment=$(ENV) Table=$(TABLE_NAME)
 
 invoke:
 	echo invoking $(func)
