@@ -3,7 +3,7 @@ export
 
 STACK_NAME=realestate-crawler-$(ENV)
 BUCKET_NAME=serabalint-crawler-depl-$(ENV)
-# table name must be RealEsate on prod!!
+TABLE_NAME=real-estate-$(ENV)
 REGION=eu-west-1
 
 .PHONY: deploy
@@ -11,9 +11,6 @@ REGION=eu-west-1
 check-env:
 ifndef ENV
   $(error ENV is undefined)
-endif
-ifndef TABLE_NAME
-  $(error TABLE_NAME is undefined. It must be RealEstate on prod to be backward compatible)
 endif
 ifndef RECIPIENTS
 	$(error RECIPIENTS is undefined)
@@ -49,7 +46,7 @@ deploy:
 	   cd ..; \
 	 done
 	sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket $(BUCKET_NAME)
-	sam deploy --template-file packaged.yaml --stack-name $(STACK_NAME) --capabilities CAPABILITY_IAM --region $(REGION) --parameter-overrides Environment=$(ENV) Table=$(TABLE_NAME) Recipients=$(RECIPIENTS)
+	sam deploy --template-file packaged.yaml --stack-name $(STACK_NAME) --capabilities CAPABILITY_IAM --region $(REGION) --parameter-overrides Environment=$(ENV) Recipients=$(RECIPIENTS)
 
 invoke:
 	echo invoking $(func)

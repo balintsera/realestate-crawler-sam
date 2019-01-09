@@ -75,7 +75,7 @@ typings/
 
 # dotenv environment variables file
 .env
-
+.env.*
 
 ### OSX ###
 *.DS_Store

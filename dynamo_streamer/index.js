@@ -1,6 +1,14 @@
 const NAME_INSERT = 'INSERT'
 const Alert = require('./src/model/Alert')
-const recipients = process.env.RECIPIENTS || ['balint.sera@gmail.com', 'anna.ferencz@gmail.com']
+let recipients = ['balint.sera@gmail.com', 'anna.ferencz@gmail.com']
+if (process.env.RECIPIENTS) {
+  const splitted = process.env.RECIPIENTS.split(" ")
+  if (!Array.isArray(splitted)) {
+    console.error('RECIPIENTS is not an array after splitting')
+  } else {
+    recipients = splitted
+  }
+}
 
 
 exports.handler = async (event, context) => {

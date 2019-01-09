@@ -11,7 +11,7 @@ Globals:
 Parameters:
   Table:
     Type: String
-    Default: RealEstate
+    Default: real-estates
   AppName:
     Type: String
     Default: real-estate-crawler
@@ -47,7 +47,7 @@ Resources:
           Enabled: False
       Environment:
         Variables:
-          TABLE: !Ref Table
+          TABLE: !Join [ "-", [ !Ref AppName, !Ref Table, !Ref Environment ] ]
 
   RealEstateData:
     Type: AWS::DynamoDB::Table
@@ -61,7 +61,7 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: "5"
         WriteCapacityUnits: "5"
-      TableName: !Ref Table
+      TableName: !Join [ "-", [ !Ref AppName, !Ref Table, !Ref Environment ] ]
       StreamSpecification:
         StreamViewType: NEW_IMAGE
 
@@ -77,7 +77,7 @@ Resources:
         - AmazonSESFullAccess
       Environment:
         Variables:
-          TABLE: !Ref Table
+          TABLE: !Join [ "-", [ !Ref AppName, !Ref Table, !Ref Environment ] ]
           RECIPIENTS: !Ref Recipients
 
   DataTableStream:
