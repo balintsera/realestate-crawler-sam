@@ -17,6 +17,9 @@ Parameters:
     Default: real-estate-crawler
     AllowedValues:
     - real-estate-crawler
+  Recipients:
+    Type: String
+    Default: balint.sera+rec@gmail.com
   Environment:
     Type: String
     AllowedValues:
@@ -75,6 +78,7 @@ Resources:
       Environment:
         Variables:
           TABLE: !Ref Table
+          RECIPIENTS: !Ref Recipients
 
   DataTableStream:
     Type: AWS::Lambda::EventSourceMapping
