@@ -12,14 +12,29 @@ Parameters:
   Table:
     Type: String
     Default: RealEstate
+  AppName:
+    Type: String
+    Default: real-estate-crawler
     AllowedValues:
-    - RealEstate
+    - real-estate-crawler
+  Recipients:
+    Type: String
+    Default: balint.sera+rec@gmail.com
+  Environment:
+    Type: String
+    AllowedValues:
+    - stage
+    - test
+    - prod
+    Default: prod
+
 
 Resources:
 
   Crawler:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
+      FunctionName: !Join [ "-", [ !Ref AppName, "crawler", !Ref Environment ] ]
       CodeUri: crawler/
       Handler: index.handler
       Runtime: nodejs8.10
@@ -53,6 +68,7 @@ Resources:
   DynamoStreamer:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: !Join [ "-", [ !Ref AppName, "alert", !Ref Environment ] ]
       CodeUri: dynamo_streamer/
       Handler: index.handler
       Runtime: nodejs8.10
@@ -62,6 +78,7 @@ Resources:
       Environment:
         Variables:
           TABLE: !Ref Table
+          RECIPIENTS: !Ref Recipients
 
   DataTableStream:
     Type: AWS::Lambda::EventSourceMapping
