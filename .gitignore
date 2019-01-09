@@ -130,3 +130,6 @@ $RECYCLE.BIN/
 
 node_modules
 .idea
+
+# build
+packaged.yaml
