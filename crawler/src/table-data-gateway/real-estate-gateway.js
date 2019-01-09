@@ -13,12 +13,12 @@ AWS.config.update(awsConfigUpdate);
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 const TABLE_NAME = process.env.TABLE
-
+const MISSING_NUM = '0'
 class RealEstateGateway {
   // batchInsert enables insertion of max 25 items
   static batchInsert(realEstates) {
     const missing = 'MISSING_STRING'
-    const missingNum = '0'
+    const missingNum = MISSING_NUM
 
     // remove unusable ones
     realEstates = realEstates
@@ -47,16 +47,16 @@ class RealEstateGateway {
                 "ID": { S: realEstate.id },
                 "Address": { S: realEstate.address || missing },
                 "ForeignId":  { S: realEstate.foreignID || missing },
-                "Price": { N: realEstate.price.toString() || missingNum },
-                "RoomNum": { N: realEstate.roomCountNum.toString() || missingNum },
-                "Size": { N: realEstate.sizeNum.toString() || missingNum },
+                "Price": { N: RealEstateGateway.numberForDynamo(realEstate.price) },
+                "RoomNum": { N: RealEstateGateway.numberForDynamo(realEstate.roomCountNum) },
+                "Size": { N: RealEstateGateway.numberForDynamo(realEstate.sizeNum) },
                 "BaseURL": { S: realEstate.baseURL || missing },
                 "AbsoluteURL": { S: realEstate.absoluteURL || missing }
               }
             }
           }
       })
-    console.log("putRequests %j", putRequests)
+      //console.log("putRequests %j", putRequests)
       const params = { RequestItems: {} }
       params.RequestItems[TABLE_NAME] = putRequests
       const prom = new Promise((resolve, reject) => {
@@ -74,6 +74,35 @@ class RealEstateGateway {
 
 
     return Promise.all(batchWritePromises)
+  }
+
+  static numberForDynamo(anyType, log = false) {
+    if (log) {
+      console.log("anytype", anyType)
+    }
+    if (anyType === null) {
+      return MISSING_NUM
+    }
+    if (typeof anyType  === 'undefined') {
+      return MISSING_NUM
+    }
+
+    if (isNaN(anyType)) {
+      return MISSING_NUM
+    }
+
+    if (typeof anyType === 'number') {
+      return anyType.toString()
+    }
+
+    if (typeof anyType === 'string') {
+      // this will handle the case when the result is an empty string
+      return this.numberForDynamo(anyType.replace(/[^0-9.,], ''/).replace(/,/, '.'))
+    }
+
+    console.log("Strange number format: %j", anyType)
+
+    return MISSING_NUM
   }
 
 }
