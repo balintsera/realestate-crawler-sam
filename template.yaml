@@ -26,6 +26,7 @@ Parameters:
     - stage
     - test
     - prod
+    - buy
     Default: prod
 
 
