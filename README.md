@@ -1,3 +1,41 @@
+# Crawler
+
+This AWS SAM serverless application crawls certain sites defined in config then extracts infos from them, saves to a dynamoDB table and sends notification to the owner.
+
+Duplicate finder plan
+
+1. the crawler Lambda gets image URLs from the crawled documents and saves it to dynamoDB in a json array
+2. the imageGetter Lambda listens to dynamo stream and downloads images for each record into a S3 bucket (with metainfo like id of the real estate)
+3. recognition Lambda listens to S3, calls Recognition on the image and saves the resulted labels into the real estate record in Dynamo
+4. "duper" Lambda listens to the dynamo streams and tries to evaluate the status of the records which has labels and saves the result.
+
+## Specification
+
+### Crawler
+
+saves images into an array with absolute urls (dynamoDB)
+
+### imageGetter
+
+downloads images into a bucket with metainfo
+
+- real estate unique URL 
+- images
+    - url1
+    - url2
+
+### Duper
+
+updates a field called "labels"
+- []
+- []
+
+in the first iteration, this labels will be evaluated by me to see if this helps to catch duplicates.
+
+
+
+
+
 # sam-app
 
 This is a sample template for sam-app - Below is a brief explanation of what we have generated for you:
