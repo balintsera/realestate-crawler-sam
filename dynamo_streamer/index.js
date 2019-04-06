@@ -1,8 +1,9 @@
 const NAME_INSERT = 'INSERT'
 const Alert = require('./src/model/Alert')
+const { RECIPIENTS } = require('./config')
 let recipients = ['balint.sera@gmail.com', 'anna.ferencz@gmail.com']
-if (process.env.RECIPIENTS) {
-  const splitted = process.env.RECIPIENTS.split(" ")
+if (RECIPIENTS) {
+  const splitted = RECIPIENTS.split(" ")
   if (!Array.isArray(splitted)) {
     console.error('RECIPIENTS is not an array after splitting')
   } else {

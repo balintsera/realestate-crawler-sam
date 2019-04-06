@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk');
-AWS.config.update({region: process.env.AWS_REGION});
+const { AWS_REGION, SUBJECT } = require('../../config')
+
+AWS.config.update({region: AWS_REGION})
 
 class Alert {
   constructor(addresses, realEstates) {
@@ -34,7 +36,7 @@ class Alert {
         },
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Új ház'
+          Data: SUBJECT
         }
       },
       Source: 'balint.sera@redsteedstudios.com'
