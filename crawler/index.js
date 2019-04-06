@@ -1,5 +1,8 @@
+const { CRAWLER_CONF_FILE, ALWAYS_RUN } = require('./config')
+
+
 const DOMCrawler = require('./src/service/dom-crawler')
-const urls = require('./src/config/urls.js')
+const urls = require('./src/config/' + CRAWLER_CONF_FILE + '.js')
 const RealEstateGateway = require('./src/table-data-gateway/real-estate-gateway')
 
 exports.handler = async (event, context) => {
@@ -21,7 +24,7 @@ exports.handler = async (event, context) => {
 }
 
 const shouldExit = () => {
-  if (process.env.ALWAYS_RUN) {
+  if (ALWAYS_RUN) {
     return false
   }
   const randomInt = Math.floor(Math.random() * 10)
