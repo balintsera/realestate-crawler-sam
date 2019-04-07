@@ -2,6 +2,42 @@ const RealEstate = require('../model/real-estate')
 
 const urls = [
   {
+    uri: 'https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett',
+    parentSelector: '.listing__card',
+    selectors: [
+      {
+        field: 'address',
+        selector: '.listing__address',
+        methods: {'text': [], 'trim': []} // property name: method name, value array: paramters for that method
+      },
+      {
+        field: 'price',
+        selector: '.price',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'size',
+        selector: '.listing__data--area-size',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'roomCount',
+        selector: '.listing__data--room-count',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'foreignID',
+        selector: 'a.listing__thumbnail',
+        methods: {'attr': ['href']}
+      },
+      {
+        field: 'imageURL',
+        selector: 'img.listing__image',
+        methods: {'attr': ['src'], }
+      },
+    ]
+  },
+  {
     uri: 'https://www.ingatlannet.hu/kiadó/ház/Szeged',
     parentSelector: '.row.mb-md-3',
     selectors: [
