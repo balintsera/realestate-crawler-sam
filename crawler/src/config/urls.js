@@ -57,6 +57,11 @@ const urls = [
         methods: {'text': [], 'trim': []}
       },
       {
+        field: 'imageURL',
+        selector: 'img.img_small',
+        methods: {'attr': ['style'], 'trim': [], 'substring': [22], 'slice': [0, -2]}
+      },
+      {
         field: 'foreignID',
         selector: '.reLiSection a.img_small',
         methods: {'attr': ['href']}

@@ -51,7 +51,8 @@ class RealEstateGateway {
                 "RoomNum": { N: RealEstateGateway.numberForDynamo(realEstate.roomCountNum) },
                 "Size": { N: RealEstateGateway.numberForDynamo(realEstate.sizeNum) },
                 "BaseURL": { S: realEstate.baseURL || missing },
-                "AbsoluteURL": { S: realEstate.absoluteURL || missing }
+                "AbsoluteURL": { S: realEstate.absoluteURL || missing },
+                "ImageURL": { S: realEstate.imageURL || missing }
               }
             }
           }

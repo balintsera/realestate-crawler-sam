@@ -51,7 +51,7 @@ deploy:
 invoke:
 	echo invoking $(func)
 	cd $(func); \
-	cat test_events/event.json| docker run -i -e DOCKER_LAMBDA_USE_STDIN=1 -e AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) -e AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) -e AWS_LAMBDA_FUNCTION_TIMEOUT=100 -e TABLE=$(TABLE_NAME) -e AWS_DYNAMO_ENDPOINT=http://host.docker.internal:8000 -e AWS_REGION=eu-central-1 -e ALWAYS_RUN=1 --rm -v `pwd`:/var/task lambci/lambda:nodejs8.10
+	cat test_events/event.json| docker run -i -e DOCKER_LAMBDA_USE_STDIN=1 -e AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) -e AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) -e AWS_LAMBDA_FUNCTION_TIMEOUT=100 -e TABLE=$(TABLE_NAME) -e AWS_DYNAMO_ENDPOINT=http://host.docker.internal:8000 -e AWS_REGION=eu-central-1 -e ALWAYS_RUN=1 -e CRAWLER_CONF_FILE=urls-dev --rm -v `pwd`:/var/task lambci/lambda:nodejs8.10
 
 destroy:
 	aws cloudformation delete-stack --stack-name $(STACK_NAME) --region $(REGION)
