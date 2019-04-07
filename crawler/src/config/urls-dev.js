@@ -75,6 +75,42 @@ const urls = [
     ]
   },
   {
+    uri: 'https://otthonterkep.hu/szures/kiado+haz+alberlet+szeged?sort=rd&ex=1',
+    parentSelector: '.prop-card',
+    selectors: [
+      {
+        field: 'address',
+        selector: 'h2.prop-type .prop-address',
+        methods: {'text': [], 'trim': []} // property name: method name, value array: paramters for that method
+      },
+      {
+        field: 'price',
+        selector: '.prop-fullprice',
+        methods: {'attr': ['content'], }
+      },
+      {
+        field: 'size',
+        selector: '.prop-fullsize span:nth-child(1)',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'roomCount',
+        selector: 'span.prop-rooms',
+        methods: {'text': [], 'trim': []}
+      },
+      {
+        field: 'foreignID',
+        selector: 'a',
+        methods: {'attr': ['href']}
+      },
+      {
+        field: 'imageURL',
+        selector: 'img[itemprop="contentUrl"]',
+        methods: {'attr': ['src'], }
+      },
+    ]
+  },
+  {
     uri: 'https://www.jofogas.hu/szeged?q=kiado%20haz',
     parentSelector: '.box.listing.list-item.reListElement',
     selectors: [
