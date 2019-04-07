@@ -1,18 +1,20 @@
 const AWS = require("aws-sdk");
+const { AWS_REGION, AWS_DYNAMO_ENDPOINT, TABLE } = require('../../config')
 
 const awsConfigUpdate = {
-  region: process.env.AWS_REGION || 'eu-west-1',
+  region: AWS_REGION,
 }
 
-console.log(process.env.AWS_DYNAMO_ENDPOINT)
-if (process.env.AWS_DYNAMO_ENDPOINT) {
-  awsConfigUpdate.endpoint = process.env.AWS_DYNAMO_ENDPOINT
+if (AWS_DYNAMO_ENDPOINT) {
+  awsConfigUpdate.endpoint = AWS_DYNAMO_ENDPOINT
 }
 
 AWS.config.update(awsConfigUpdate);
+console.log("dynamo config", awsConfigUpdate)
+
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-const TABLE_NAME = process.env.TABLE
+const TABLE_NAME = TABLE
 const MISSING_NUM = '0'
 class RealEstateGateway {
   // batchInsert enables insertion of max 25 items
@@ -57,7 +59,7 @@ class RealEstateGateway {
             }
           }
       })
-      //console.log("putRequests %j", putRequests)
+      console.log("putRequests %j", putRequests)
       const params = { RequestItems: {} }
       params.RequestItems[TABLE_NAME] = putRequests
       const prom = new Promise((resolve, reject) => {
