@@ -10,7 +10,7 @@ if (AWS_DYNAMO_ENDPOINT) {
 }
 
 AWS.config.update(awsConfigUpdate);
-console.log("dynamo config", awsConfigUpdate)
+//console.log("dynamo config", awsConfigUpdate)
 
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
@@ -59,7 +59,7 @@ class RealEstateGateway {
             }
           }
       })
-      console.log("putRequests %j", putRequests)
+      //console.log("putRequests %j", putRequests)
       const params = { RequestItems: {} }
       params.RequestItems[TABLE_NAME] = putRequests
       const prom = new Promise((resolve, reject) => {
